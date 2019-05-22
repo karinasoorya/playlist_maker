@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Audio Features Playlist Maker!</title>
+  <meta name="description" content="A playlist generator off audio parameters using the Spotify API">
+  <link rel="icon" href="/public/favicon.ico" type="image/x-icon">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://sp-bootstrap.global.ssl.fastly.net/8.0.0/sp-bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <header>
+    <h1>
+      Playlist Maker! <br><br>
+    </h1>
+    <h3> <a href = "{{new_playlist_link}}"> Head To Your New Playlist! </a><br><br></h3>
+  </header>
+  <main>
+    <ul class = "sp-container">
+      {% for song in new_playlist %}
+        <div class = "sp-entity-container">
+          <img src="{{song.track.album.images[0].url}}" class = "image_selector" width = "200" height = "200"/>
+          <a href = "{{song.track.album.external_urls.spotify}}">{{song.track.album.name}}</a>
+        </div>
+      {% endfor %}
+    </ul>
+    <a href = "../search"> Go back to the beginning! </a>
+  </main>
+</body>
+</html>

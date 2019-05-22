@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Audio Features Playlist Maker!</title>
+  <meta name="description" content="A playlist generator off audio parameters using the Spotify API">
+  <link rel="icon" href="/public/favicon.ico" type="image/x-icon">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+  <script>
+  $(document).ready(function () {
+      $("img.image_selector").click(function () {
+        var id = this.id;
+        $.get('/put_param/' + id, function(thing) {
+            window.location.href = "http://localhost:8000/audio_features/" + id;
+        });
+      });
+  });
+  </script>
+  <link href="https://sp-bootstrap.global.ssl.fastly.net/8.0.0/sp-bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+  <header>
+    <h1>
+      Playlist Maker! <br> <br>
+    </h1>
+    <h3> Click on the picture of the playlist to move on or click on the name to get more information about it: </h3>
+  </header>
+  <section class = "playlist_choices">
+    <ul class = "sp-container">
+      {% for playlist in playlist_options %}
+      <div class = "sp-entity-container">
+        <img src="{{playlist.images[0].url}}" class = "image_selector" id = {{playlist.id}} name = "image_option" width = "200" height = "200"/>
+        <a href = "{{playlist.external_urls.spotify}}">{{playlist.name}}</a>
+      </div>
+      {% endfor %}
+    </ul>
+  </section>
+  <main>
+  </main>
+</body>
+</html>

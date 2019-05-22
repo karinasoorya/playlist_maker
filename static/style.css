@@ -1,0 +1,99 @@
+
+* {
+  box-sizing: border-box;
+}
+header {
+  margin-top: 100px;
+}
+
+.slidecontainer {
+  width: 50%;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+label, .slider, .checkbox {
+  display: block;
+}
+
+label {
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.form-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.slider {
+  width: 50%;
+  margin-right: 20px;
+  height: 25px;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+body {
+  margin: 70px;
+  color: black;
+  text-align: center;
+}
+
+.playlist_choices {
+  margin-top: 100px;
+}
+
+.flashes {
+  color: red;
+}
+
+.sp-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+p {
+  margin-top: 70px;
+}
+.sp-entity-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 15px 5px;
+  width: 250px;
+}
+.sp-cover {
+  height: 250px;
+  width: 250px;
+  cursor: pointer;
+  background-size: contain !important;
+}
+.playlist-name {
+  margin-top: 40px;
+}
+
+.location-setter {
+  margin-top: 40px;
+}
+.sp-cover:hover {
+  box-shadow: inset 0 0 0 1000px rgba(255, 255, 255, 0.4);
+}
+
+.sp-title {
+  margin: 15px 0 0;
+}
+
+.sp-by {
+  margin: 0;
+}
+
+.btn {
+  margin-top: 50px;
+}

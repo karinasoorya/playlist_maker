@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Finder!</title>
+    <meta name="description" content="A playlist generator using the Spotify API">
+    <link rel="icon" href="/public/favicon.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://sp-bootstrap.global.ssl.fastly.net/8.0.0/sp-bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/style.css">
+  </head>
+  <body>
+    <header>
+      <h3>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          <ul class = flashes>
+             {% for message in messages %}
+            <h3>  {{message}} </h3>
+              {% endfor %}
+          {% endif %}
+        {% endwith %}
+        </h3>
+      <h3>
+        Adjust the values to generate a playlist of songs from the playlist you just picked!
+      </h3>
+    </header>
+    <main>
+      <p>Choose your parameters:</p>
+      <form action = "{{url_for('get_new_playlist', playlist_id = playlist_id)}}" method = "post">
+        <div class="slidecontainer">
+          <label>Acousticness:
+            <div class = "form-group">
+              <input type="range" min="1" max="100" value="50" class="slider" name="acousticness">
+              <input type="checkbox" name ="acousticness_check" class = "checkbox" checked/>
+            </div>
+          </label>
+          <label>Tempo:
+            <div class = "form-group">
+              <input type="range" min="20" max="200" value="110" class="slider" name="tempo">
+              <input type="checkbox" name ="tempo_check" class = "checkbox" checked/>
+            </div>
+          </label>
+          <label>Danceability:
+            <div class = "form-group">
+              <input type="range" min="1" max="100" value="50" class="slider" name="danceability">
+              <input type="checkbox" name ="danceability_check" class = "checkbox" checked/>
+            </div>
+          </label>
+          <label>Speechiness:
+            <div class = "form-group">
+              <input type="range" min="1" max="100" value="50" class="slider" name="speechiness">
+              <input type="checkbox" name ="speechiness_check" class = "checkbox" checked/>
+            </div>
+          </label>
+          <label> Liveness:
+            <div class = "form-group">
+              <input type="range" min="1" max="100" value="50" class="slider" name="liveness">
+              <input type="checkbox" name ="liveness_check" class = "checkbox" checked/>
+            </div>
+          </label>
+          <label> Instrumental:
+            <div class = "form-group">
+              <input type="range" min="1" max="100" value="50" class="slider" name="instrumental">
+              <input type="checkbox" name ="instrumentalness_check" class = "checkbox" checked/>
+            </div>
+          </label>
+          <label> Energy:
+            <div class = "form-group">
+              <input type="range" min="1" max="100" value="50" class="slider" name="energy">
+              <input type="checkbox" name ="energy_check" class = "checkbox" checked/>
+            </div>
+          </label>
+        <label> Valence:
+          <div class = "form-group">
+            <input type="range" min="1" max="100" value="50" class="slider" name="valence">
+            <input type="checkbox" name ="valence_check" class = "checkbox" checked/>
+          </div>
+        </label>
+        </div>
+          <button class="btn btn-success" type="submit">Submit</button>
+      </form>
+      <div id = "statement">
+      </div>
+      <section class = "the_end">
+        <ul id = "output" class = "sp-container">
+          <ul>
+        </section>
+    </main>
+  </body>
+</html>

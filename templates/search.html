@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Audio Features Playlist Maker!</title>
+  <meta name="description" content="A playlist generator off audio parameters using the Spotify API">
+  <link rel="icon" href="/public/favicon.ico" type="image/x-icon">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://sp-bootstrap.global.ssl.fastly.net/8.0.0/sp-bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+  <header>
+    <h1>
+      Playlist Maker!
+    </h1>
+    <h3> Enter a playlist name and where to find it: </h3>
+  </header>
+  <main>
+    <form action = "{{url_for('results_of_search')}}" method = "post">
+      <div class = "playlist-name">
+        <label for = "playlist_name"> Playlist Name:
+        <input type = "text" name = "playlist_name">
+        </label>
+      </div>
+      <div class = "location-setter">
+      <label for = "location"> Location:
+      <select name = 'location' name = 'location'>
+        <option value = "local"> In My Playlists </option>
+        <option value = "global"> A Public Spotify Playlist </option>
+      </select>
+      </label>
+      </div>
+        <button class="btn btn-success" id = "button" type="submit">Submit</button>
+    </form>
+  </main>
+</body>
+</html>
