@@ -59,6 +59,7 @@ def results_of_search():
     tok = session['real_token']
     sp = spotipy.Spotify(auth = tok)
     results = []
+    
     if request.form['location'] == 'local':
         k = sp.current_user_playlists(limit = 50, offset = 0)
         for a in k['items']:
@@ -66,8 +67,10 @@ def results_of_search():
                 results.append(a)
     else:
         playlists = sp.search(request.form['playlist_name'], limit = 20, offset = 0, type = 'playlist', market = None)
+        
         for thing in playlists['playlists']['items']:
             results.append(thing)
+            
     return render_template('results.html', playlist_options = results)
 
 @app.route('/put_param/<playlist_id>', methods = ['GET', 'POST'])
@@ -80,29 +83,31 @@ def pick_features(playlist_id):
 
 @app.route('/new_playlist/<playlist_id>', methods = ['POST'])
 def get_new_playlist(playlist_id):
-    print(request.form)
     new_playlist = []
     values = {}
     checks = ['acousticness_check', 'liveness_check', 'danceability_check', 'speechiness_check', 'tempo_check', 'instrumentalness_check', 'valence_check', 'energy_check']
     values['acousticness'] = float(request.form['acousticness']) / 100.00
     values['liveness'] = float(request.form['liveness']) / 100.00
     values['danceability'] = float(request.form['danceability']) / 100.00
-    #values['loudness'] = float(request.form['loudness']) * -1.0
     values['speechiness'] = float(request.form['speechiness']) / 100.00
     values['tempo'] = float(request.form['tempo'])
     values['instrumentalness'] = float(request.form['instrumental']) / 100.00
     values['valence'] = float(request.form['valence']) / 100.00
     values['energy'] = float(request.form['energy']) / 100.00
+    
     for check in checks:
         if check in request.form:
             pass
         else:
             values.pop(check[:-6])
+            
     songs = pull_songs_from_playlist(playlist_id, values)
+    
     if len(songs) == 0:
         error = "No matching songs with these parameters"
         flash('Try again with some different parameters')
         return render_template('home.html', error = error, playlist_id = playlist_id)
+    
     tok = session['real_token']
     sp = spotipy.Spotify(auth = tok)
     username = sp.current_user()['uri'][13:]
@@ -114,8 +119,10 @@ def get_new_playlist(playlist_id):
     sp.user_playlist_add_tracks(user_id, playlist_id, songs)
     playlist_info = sp.user_playlist(user_id, playlist_id = playlist_id)
     new_playlist_link = playlist_info['external_urls']['spotify']
+    
     for item in playlist_info['tracks']['items']:
         new_playlist.append(item)
+        
     return render_template('playlist.html', new_playlist = new_playlist, new_playlist_link = new_playlist_link)
 
 def pull_songs_from_playlist(playlist_id, desired_features):
