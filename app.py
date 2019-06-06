@@ -46,9 +46,6 @@ def callback():
     post_request = requests.post(spotify_token_url, data=code_payload)
     response_data = json.loads(post_request.text)
     access_token = response_data["access_token"]
-    """refresh_token = response_data["refresh_token"]
-    token_type = response_data["token_type"]
-    expires_in = response_data["expires_in"]"""
     real_token = access_token
     session['real_token'] = real_token
     return redirect(url_for('search'))
@@ -61,26 +58,17 @@ def search():
 def results_of_search():
     tok = session['real_token']
     sp = spotipy.Spotify(auth = tok)
-    more_to_display = False
-    #if request.method == 'POST':
-        #playlist_options = next_stuff
-        #if sp.next(next_stuff) != None:
-            #more_to_display = True
     results = []
     if request.form['location'] == 'local':
         k = sp.current_user_playlists(limit = 50, offset = 0)
         for a in k['items']:
             if a['name'].lower() == request.form['playlist_name'].lower():
                 results.append(a)
-        #if sp.next(k) != None:
-            #more_to_display = True
     else:
         playlists = sp.search(request.form['playlist_name'], limit = 20, offset = 0, type = 'playlist', market = None)
         for thing in playlists['playlists']['items']:
             results.append(thing)
-        #if sp.next(playlists['playlists'] != None):
-            #more_to_display = True
-    return render_template('results.html', playlist_options = results, more_to_display = more_to_display)
+    return render_template('results.html', playlist_options = results)
 
 @app.route('/put_param/<playlist_id>', methods = ['GET', 'POST'])
 def get_param(playlist_id):
